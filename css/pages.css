@@ -1,0 +1,148 @@
+/* Additional styles for service pages */
+
+.page-header {
+    background: linear-gradient(135deg, #2c5aa0 0%, #1e3d72 100%);
+    color: white;
+    padding: 120px 0 80px;
+    text-align: center;
+    margin-top: 70px;
+}
+
+.page-header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.page-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.detailed-services {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.service-detail {
+    background: white;
+    margin-bottom: 3rem;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.service-content {
+    padding: 3rem;
+}
+
+.service-content h2 {
+    color: #2c5aa0;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.service-content h2 i {
+    font-size: 1.5rem;
+}
+
+.service-content h3 {
+    color: #2c5aa0;
+    margin: 2rem 0 1rem;
+    font-size: 1.3rem;
+}
+
+.brand-list,
+.included-list,
+.process-list,
+.service-list,
+.repair-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.brand-list li,
+.included-list li,
+.process-list li,
+.service-list li,
+.repair-list li {
+    padding: 0.5rem 0;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.brand-list li:before,
+.included-list li:before,
+.process-list li:before,
+.service-list li:before,
+.repair-list li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #ff6b35;
+    font-weight: bold;
+}
+
+.pricing {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.pricing h3 {
+    color: #ff6b35;
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.pricing p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, #2c5aa0 0%, #1e3d72 100%);
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.cta-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .service-content {
+        padding: 2rem;
+    }
+    
+    .brand-list,
+    .included-list,
+    .process-list,
+    .service-list,
+    .repair-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-section h2 {
+        font-size: 2rem;
+    }
+}
