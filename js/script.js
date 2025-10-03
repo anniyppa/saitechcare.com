@@ -1,40 +1,4 @@
-// Loading Screen
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        document.querySelector('.loading-screen').style.opacity = '0';
-        setTimeout(() => {
-            document.querySelector('.loading-screen').style.display = 'none';
-        }, 500);
-    }, 3000);
-});
-
-// Custom Cursor
-const cursorDot = document.querySelector('[data-cursor-dot]');
-const cursorOutline = document.querySelector('[data-cursor-outline]');
-
-window.addEventListener('mousemove', (e) => {
-    const posX = e.clientX;
-    const posY = e.clientY;
-    
-    cursorDot.style.left = `${posX}px`;
-    cursorDot.style.top = `${posY}px`;
-    
-    cursorOutline.style.left = `${posX}px`;
-    cursorOutline.style.top = `${posY}px`;
-});
-
-// Cursor hover effects
-document.querySelectorAll('button, a, .service-card, .showcase-item').forEach(el => {
-    el.addEventListener('mouseenter', () => {
-        cursorDot.style.transform = 'scale(2)';
-        cursorOutline.style.transform = 'scale(2)';
-    });
-    
-    el.addEventListener('mouseleave', () => {
-        cursorDot.style.transform = 'scale(1)';
-        cursorOutline.style.transform = 'scale(1)';
-    });
-});
+// Simplified animations - removed loading screen and custom cursor
 
 // Mobile Navigation
 const hamburger = document.querySelector('.hamburger');
@@ -60,42 +24,13 @@ themeToggle?.addEventListener('click', () => {
     icon.className = body.dataset.theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
 });
 
-// Typing Animation
-const typingTexts = ['Tech Partner', 'Solution Hub', 'Service Center', 'Tech Store'];
-let textIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-
-function typeText() {
+// Simplified typing - static text
+document.addEventListener('DOMContentLoaded', () => {
     const typingElement = document.querySelector('.typing-text');
-    if (!typingElement) return;
-    
-    const currentText = typingTexts[textIndex];
-    
-    if (isDeleting) {
-        typingElement.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typingElement.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
+    if (typingElement) {
+        typingElement.textContent = 'Tech Partner';
     }
-    
-    let typeSpeed = isDeleting ? 50 : 100;
-    
-    if (!isDeleting && charIndex === currentText.length) {
-        typeSpeed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textIndex = (textIndex + 1) % typingTexts.length;
-        typeSpeed = 500;
-    }
-    
-    setTimeout(typeText, typeSpeed);
-}
-
-// Start typing animation
-setTimeout(typeText, 1000);
+});
 
 // Counter Animation
 function animateCounter(element, target) {
@@ -332,24 +267,10 @@ function updateStoreStatus() {
     }
 }
 
-// Interactive Showcase Items
+// Simplified showcase items
 document.querySelectorAll('.showcase-item').forEach(item => {
     item.addEventListener('click', () => {
-        const service = item.getAttribute('data-service');
         scrollToSection('services');
-        
-        // Highlight corresponding service card
-        setTimeout(() => {
-            const serviceCard = document.querySelector(`[data-category*="${service}"]`);
-            if (serviceCard) {
-                serviceCard.style.transform = 'scale(1.05)';
-                serviceCard.style.boxShadow = '0 25px 50px -12px rgba(102, 126, 234, 0.25)';
-                setTimeout(() => {
-                    serviceCard.style.transform = '';
-                    serviceCard.style.boxShadow = '';
-                }, 2000);
-            }
-        }, 1000);
     });
 });
 
@@ -363,37 +284,9 @@ function makeCall() {
     window.open('tel:+919880663100');
 }
 
-// Ripple Effect for Buttons
-document.querySelectorAll('.ripple-btn').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        const ripple = document.createElement('span');
-        const rect = this.getBoundingClientRect();
-        const size = Math.max(rect.width, rect.height);
-        const x = e.clientX - rect.left - size / 2;
-        const y = e.clientY - rect.top - size / 2;
-        
-        ripple.style.width = ripple.style.height = size + 'px';
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        ripple.classList.add('ripple');
-        
-        this.appendChild(ripple);
-        
-        setTimeout(() => {
-            ripple.remove();
-        }, 600);
-    });
-});
+// Removed ripple effect for simpler interaction
 
-// Parallax Effect for Hero Background
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallax = document.querySelector('.hero-bg');
-    if (parallax) {
-        const speed = scrolled * 0.5;
-        parallax.style.transform = `translateY(${speed}px)`;
-    }
-});
+// Removed parallax effect for better performance
 
 // Initialize everything when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
@@ -433,14 +326,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.head.appendChild(style);
 });
 
-// Service Card Interactions
+// Simplified service card hover
 document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-10px) scale(1.02)';
+        card.style.transform = 'translateY(-5px)';
     });
     
     card.addEventListener('mouseleave', () => {
-        card.style.transform = 'translateY(0) scale(1)';
+        card.style.transform = 'translateY(0)';
     });
 });
 
