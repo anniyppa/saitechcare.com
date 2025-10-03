@@ -1,203 +1,15 @@
-// Simplified animations - removed loading screen and custom cursor
-
 // Mobile Navigation
-const hamburger = document.querySelector('.hamburger');
+const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
 const navMenu = document.querySelector('.nav-menu');
 
-hamburger?.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navMenu.classList.toggle('active');
-});
-
-document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
-    hamburger?.classList.remove('active');
-    navMenu?.classList.remove('active');
-}));
-
-// Theme Toggle
-const themeToggle = document.getElementById('theme-toggle');
-const body = document.body;
-
-themeToggle?.addEventListener('click', () => {
-    body.dataset.theme = body.dataset.theme === 'dark' ? 'light' : 'dark';
-    const icon = themeToggle.querySelector('i');
-    icon.className = body.dataset.theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
-});
-
-// Simplified typing - static text
-document.addEventListener('DOMContentLoaded', () => {
-    const typingElement = document.querySelector('.typing-text');
-    if (typingElement) {
-        typingElement.textContent = 'Tech Partner';
-    }
-});
-
-// Counter Animation
-function animateCounter(element, target) {
-    let current = 0;
-    const increment = target / 100;
-    const timer = setInterval(() => {
-        current += increment;
-        if (current >= target) {
-            current = target;
-            clearInterval(timer);
-        }
-        element.textContent = Math.floor(current);
-    }, 20);
-}
-
-// Intersection Observer for animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            // Counter animation
-            if (entry.target.hasAttribute('data-count')) {
-                const target = parseInt(entry.target.getAttribute('data-count'));
-                animateCounter(entry.target, target);
-                observer.unobserve(entry.target);
-            }
-            
-            // AOS-like animations
-            if (entry.target.hasAttribute('data-aos')) {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }
-        }
+if (mobileMenuBtn) {
+    mobileMenuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        mobileMenuBtn.classList.toggle('active');
     });
-}, observerOptions);
-
-// Observe elements
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('[data-count]').forEach(el => observer.observe(el));
-    document.querySelectorAll('[data-aos]').forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-});
-
-// Service Tabs
-document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all tabs
-        document.querySelectorAll('.tab-btn').forEach(tab => tab.classList.remove('active'));
-        btn.classList.add('active');
-        
-        const category = btn.getAttribute('data-tab');
-        const cards = document.querySelectorAll('.service-card');
-        
-        cards.forEach(card => {
-            if (category === 'all' || card.getAttribute('data-category') === category) {
-                card.style.display = 'block';
-                card.style.animation = 'fadeInUp 0.5s ease';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-});
-
-// Multi-step Form
-let currentStep = 1;
-const totalSteps = 3;
-let selectedService = null;
-let estimatedPrice = 0;
-
-function showStep(step) {
-    document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.step-dot').forEach(dot => dot.classList.remove('active'));
-    
-    document.querySelector(`[data-step="${step}"]`).classList.add('active');
-    document.querySelector(`.step-dot[data-step="${step}"]`).classList.add('active');
-    
-    // Update navigation buttons
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    const submitBtn = document.querySelector('.submit-btn');
-    
-    prevBtn.style.display = step === 1 ? 'none' : 'flex';
-    nextBtn.style.display = step === totalSteps ? 'none' : 'flex';
-    submitBtn.style.display = step === totalSteps ? 'flex' : 'none';
 }
-
-function nextStep() {
-    if (currentStep < totalSteps) {
-        currentStep++;
-        showStep(currentStep);
-        
-        if (currentStep === 3) {
-            updateQuote();
-        }
-    }
-}
-
-function previousStep() {
-    if (currentStep > 1) {
-        currentStep--;
-        showStep(currentStep);
-    }
-}
-
-// Service Selection
-document.querySelectorAll('.service-option').forEach(option => {
-    option.addEventListener('click', () => {
-        document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
-        selectedService = option.getAttribute('data-service');
-        updateQuote();
-    });
-});
-
-function updateQuote() {
-    const prices = {
-        'toner': 35,
-        'repair': 75,
-        'sales': 25000
-    };
-    
-    estimatedPrice = prices[selectedService] || 0;
-    document.getElementById('quoteAmount').textContent = `₹${estimatedPrice.toLocaleString()}`;
-}
-
-// Form Submission
-document.getElementById('contactForm')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        service: selectedService,
-        message: document.getElementById('message').value,
-        estimatedPrice: estimatedPrice
-    };
-    
-    // Simulate form submission
-    alert(`Thank you ${formData.name}! Your quote request for ${selectedService} service (₹${estimatedPrice.toLocaleString()}) has been submitted. We'll contact you within 24 hours.`);
-    
-    // Reset form
-    document.getElementById('contactForm').reset();
-    currentStep = 1;
-    showStep(1);
-    selectedService = null;
-    estimatedPrice = 0;
-    document.querySelectorAll('.service-option').forEach(opt => opt.classList.remove('selected'));
-});
 
 // Smooth Scrolling
-function scrollToSection(sectionId) {
-    document.getElementById(sectionId)?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start'
-    });
-}
-
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -214,41 +26,69 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // Header Scroll Effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
-    if (window.scrollY > 100) {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
-        header.style.backdropFilter = 'blur(20px)';
+    if (window.scrollY > 50) {
+        header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
     } else {
-        header.style.background = 'rgba(255, 255, 255, 0.95)';
+        header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
     }
 });
 
-// Back to Top Button
-const backToTop = document.getElementById('backToTop');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        backToTop?.classList.add('visible');
-    } else {
-        backToTop?.classList.remove('visible');
-    }
-});
-
-backToTop?.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+// Form Handling
+const quoteForm = document.getElementById('quoteForm');
+if (quoteForm) {
+    quoteForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form data
+        const formData = {
+            name: document.getElementById('name').value,
+            phone: document.getElementById('phone').value,
+            email: document.getElementById('email').value,
+            service: document.getElementById('service').value,
+            message: document.getElementById('message').value
+        };
+        
+        // Basic validation
+        if (!formData.name || !formData.phone || !formData.service) {
+            alert('Please fill in all required fields.');
+            return;
+        }
+        
+        // Phone number validation
+        const phoneRegex = /^[6-9]\d{9}$/;
+        if (!phoneRegex.test(formData.phone.replace(/\D/g, '').slice(-10))) {
+            alert('Please enter a valid 10-digit phone number.');
+            return;
+        }
+        
+        // Simulate form submission
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+        submitBtn.disabled = true;
+        
+        setTimeout(() => {
+            alert(`Thank you ${formData.name}! We've received your request for ${formData.service}. Our team will contact you within 2 hours.`);
+            
+            // Reset form
+            this.reset();
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 2000);
     });
-});
+}
 
 // Store Status
 function updateStoreStatus() {
-    const now = new Date();
-    const day = now.getDay();
-    const hour = now.getHours();
-    const statusElement = document.getElementById('store-status');
+    const statusElement = document.querySelector('.status span:last-child');
     const statusDot = document.querySelector('.status-dot');
     
     if (!statusElement || !statusDot) return;
+    
+    const now = new Date();
+    const day = now.getDay();
+    const hour = now.getHours();
     
     let isOpen = false;
     
@@ -260,76 +100,69 @@ function updateStoreStatus() {
     
     if (isOpen) {
         statusElement.textContent = 'Open Now';
-        statusDot.style.background = '#00ff88';
+        statusDot.style.background = '#38a169';
     } else {
         statusElement.textContent = 'Closed';
-        statusDot.style.background = '#ff6b6b';
+        statusDot.style.background = '#e53e3e';
     }
 }
 
-// Simplified showcase items
-document.querySelectorAll('.showcase-item').forEach(item => {
-    item.addEventListener('click', () => {
-        scrollToSection('services');
-    });
-});
-
-// Utility Functions
-function openMaps() {
-    const address = encodeURIComponent('#60, 2nd Main Road, 3rd Cross, Thimmareddy Layout, Hormavu Main Road, Bangalore - 560043');
-    window.open(`https://www.google.com/maps/search/?api=1&query=${address}`, '_blank');
-}
-
-function makeCall() {
-    window.open('tel:+919880663100');
-}
-
-// Removed ripple effect for simpler interaction
-
-// Removed parallax effect for better performance
-
-// Initialize everything when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    updateStoreStatus();
-    setInterval(updateStoreStatus, 60000); // Update every minute
+// Counter Animation for Stats
+function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number');
     
-    // Add CSS animations
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    counters.forEach(counter => {
+        const target = parseInt(counter.textContent.replace(/\D/g, ''));
+        let current = 0;
+        const increment = target / 100;
         
-        .ripple {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: scale(0);
-            animation: ripple-animation 0.6s linear;
-            pointer-events: none;
-        }
-        
-        @keyframes ripple-animation {
-            to {
-                transform: scale(4);
-                opacity: 0;
+        const updateCounter = () => {
+            if (current < target) {
+                current += increment;
+                if (counter.textContent.includes('%')) {
+                    counter.textContent = Math.ceil(current) + '%';
+                } else if (counter.textContent.includes('+')) {
+                    counter.textContent = Math.ceil(current).toLocaleString() + '+';
+                } else {
+                    counter.textContent = Math.ceil(current).toLocaleString();
+                }
+                requestAnimationFrame(updateCounter);
+            } else {
+                if (counter.textContent.includes('%')) {
+                    counter.textContent = target + '%';
+                } else if (target >= 1000) {
+                    counter.textContent = target.toLocaleString() + '+';
+                } else {
+                    counter.textContent = target.toLocaleString();
+                }
             }
-        }
-    `;
-    document.head.appendChild(style);
-});
+        };
+        
+        updateCounter();
+    });
+}
 
-// Simplified service card hover
+// Intersection Observer for animations
+const observerOptions = {
+    threshold: 0.5,
+    rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            if (entry.target.classList.contains('about-stats')) {
+                animateCounters();
+                observer.unobserve(entry.target);
+            }
+        }
+    });
+}, observerOptions);
+
+// Service Card Hover Effects
 document.querySelectorAll('.service-card').forEach(card => {
     card.addEventListener('mouseenter', () => {
-        card.style.transform = 'translateY(-5px)';
+        card.style.transform = 'translateY(-8px)';
     });
     
     card.addEventListener('mouseleave', () => {
@@ -337,89 +170,95 @@ document.querySelectorAll('.service-card').forEach(card => {
     });
 });
 
-// Form Input Animations
-document.querySelectorAll('.form-group input, .form-group textarea').forEach(input => {
-    input.addEventListener('focus', () => {
-        input.parentElement.classList.add('focused');
-    });
-    
-    input.addEventListener('blur', () => {
-        if (!input.value) {
-            input.parentElement.classList.remove('focused');
-        }
+// Preview Card Interactions
+document.querySelectorAll('.preview-card').forEach(card => {
+    card.addEventListener('click', () => {
+        document.getElementById('services').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
     });
 });
 
-// Printer Models Data (from previous version)
-const printerModels = {
-    hp: {
-        models: ['LaserJet 1010', 'LaserJet 1012', 'LaserJet 1015', 'LaserJet 1018', 'LaserJet 1020', 'LaserJet 1022', 'LaserJet P1005', 'LaserJet P1006', 'LaserJet P1007', 'LaserJet P1008', 'LaserJet P1102', 'LaserJet P1102w', 'LaserJet P1106', 'LaserJet P1108', 'LaserJet P1505', 'LaserJet P1505n', 'LaserJet P2014', 'LaserJet P2015', 'LaserJet P2035', 'LaserJet P2055', 'LaserJet 1320', 'LaserJet 1160', 'LaserJet 3015', 'LaserJet 3020', 'LaserJet 3030', 'LaserJet 3050', 'LaserJet 3052', 'LaserJet 3055', 'LaserJet Pro M404n', 'LaserJet Pro M428fdw'],
-        cartridges: {
-            'LaserJet 1010': ['Q2612A (12A)'],
-            'LaserJet 1012': ['Q2612A (12A)'],
-            'LaserJet 1015': ['Q2612A (12A)'],
-            'LaserJet 1018': ['Q2612A (12A)'],
-            'LaserJet 1020': ['Q2612A (12A)'],
-            'LaserJet 1022': ['Q2612A (12A)'],
-            'LaserJet P1005': ['CB435A (35A)'],
-            'LaserJet P1006': ['CB435A (35A)'],
-            'LaserJet P1007': ['CB435A (35A)'],
-            'LaserJet P1008': ['CB435A (35A)'],
-            'LaserJet P1102': ['CE285A (85A)'],
-            'LaserJet P1102w': ['CE285A (85A)'],
-            'LaserJet P1106': ['CE285A (85A)'],
-            'LaserJet P1108': ['CE285A (85A)'],
-            'LaserJet P1505': ['CB436A (36A)'],
-            'LaserJet P1505n': ['CB436A (36A)'],
-            'LaserJet P2014': ['Q7553A (53A)'],
-            'LaserJet P2015': ['Q7553A (53A)'],
-            'LaserJet P2035': ['CE505A (05A)'],
-            'LaserJet P2055': ['CE505A (05A)', 'CE505X (05X)'],
-            'LaserJet 1320': ['Q5949A (49A)'],
-            'LaserJet 1160': ['Q5949A (49A)'],
-            'LaserJet 3015': ['Q2613A (13A)'],
-            'LaserJet 3020': ['Q2613A (13A)'],
-            'LaserJet 3030': ['Q2613A (13A)'],
-            'LaserJet 3050': ['Q2613A (13A)'],
-            'LaserJet 3052': ['Q2613A (13A)'],
-            'LaserJet 3055': ['Q2613A (13A)'],
-            'LaserJet Pro M404n': ['CF294A (94A)'],
-            'LaserJet Pro M428fdw': ['CF294A (94A)']
-        }
-    },
-    canon: {
-        models: ['LBP2900', 'LBP2900B', 'LBP3010', 'LBP3010B', 'LBP3018', 'LBP3050', 'LBP3100', 'LBP3108', 'LBP3150', 'LBP3200', 'LBP6000', 'LBP6020', 'MF3010', 'MF4010', 'MF4018', 'MF4120', 'MF4150', 'MF4270', 'MF4320d', 'MF4350d', 'MF4370dn', 'MF4410', 'MF4450', 'MF4550d', 'MF4570dn', 'ImageClass MF3010', 'ImageClass LBP2900B'],
-        cartridges: {
-            'LBP2900': ['CRG-303'],
-            'LBP2900B': ['CRG-303'],
-            'LBP3010': ['CRG-703'],
-            'LBP3010B': ['CRG-703'],
-            'LBP3018': ['CRG-703'],
-            'LBP3050': ['CRG-708'],
-            'LBP3100': ['CRG-706'],
-            'LBP3108': ['CRG-706'],
-            'LBP3150': ['CRG-706'],
-            'LBP3200': ['CRG-706'],
-            'LBP6000': ['CRG-725'],
-            'LBP6020': ['CRG-725'],
-            'MF3010': ['CRG-725'],
-            'MF4010': ['CRG-303'],
-            'MF4018': ['CRG-303'],
-            'MF4120': ['CRG-303'],
-            'MF4150': ['CRG-303'],
-            'MF4270': ['CRG-728'],
-            'MF4320d': ['CRG-728'],
-            'MF4350d': ['CRG-728'],
-            'MF4370dn': ['CRG-728'],
-            'MF4410': ['CRG-303'],
-            'MF4450': ['CRG-303'],
-            'MF4550d': ['CRG-728'],
-            'MF4570dn': ['CRG-728'],
-            'ImageClass MF3010': ['CRG-725'],
-            'ImageClass LBP2900B': ['CRG-303']
-        }
+// Initialize everything when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    updateStoreStatus();
+    
+    // Update store status every minute
+    setInterval(updateStoreStatus, 60000);
+    
+    // Observe stats section for counter animation
+    const statsSection = document.querySelector('.about-stats');
+    if (statsSection) {
+        observer.observe(statsSection);
     }
-    // Add other brands as needed
-};
+    
+    // Add mobile menu styles
+    const style = document.createElement('style');
+    style.textContent = `
+        @media (max-width: 768px) {
+            .nav-menu.active {
+                display: flex;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+                z-index: 999;
+            }
+            
+            .nav-menu.active a {
+                padding: 1rem 0;
+                border-bottom: 1px solid #e2e8f0;
+            }
+            
+            .mobile-menu-btn.active span:nth-child(1) {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            
+            .mobile-menu-btn.active span:nth-child(2) {
+                opacity: 0;
+            }
+            
+            .mobile-menu-btn.active span:nth-child(3) {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+        }
+    `;
+    document.head.appendChild(style);
+});
 
-console.log('SaiTechCare website loaded successfully! 🚀');
+// Utility Functions
+function scrollToServices() {
+    document.getElementById('services').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+
+function scrollToContact() {
+    document.getElementById('contact').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
+
+// Add click handlers for CTA buttons
+document.querySelectorAll('.btn-primary, .btn-secondary').forEach(btn => {
+    if (btn.getAttribute('href') === '#contact') {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToContact();
+        });
+    } else if (btn.getAttribute('href') === '#services') {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            scrollToServices();
+        });
+    }
+});
+
+console.log('SaiTechCare - Professional website loaded successfully!');
