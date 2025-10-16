@@ -5,9 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaiTechCare - Professional Tech Services | Bangalore</title>
     <meta name="description" content="Professional tech services in Bangalore. Toner refilling, printer repair, laptop service, desktop sales. Trusted by 10,000+ customers.">
+    <meta name="keywords" content="toner refilling bangalore, printer repair, laptop service, desktop repair, computer sales, tech support">
+    <meta name="author" content="SaiTechCare">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://saitechcare.com/">
+    <meta property="og:title" content="SaiTechCare - Professional Tech Services | Bangalore">
+    <meta property="og:description" content="Professional tech services in Bangalore. Toner refilling, printer repair, laptop service, desktop sales. Trusted by 10,000+ customers.">
+    <meta property="og:image" content="https://saitechcare.com/images/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://saitechcare.com/">
+    <meta property="twitter:title" content="SaiTechCare - Professional Tech Services | Bangalore">
+    <meta property="twitter:description" content="Professional tech services in Bangalore. Toner refilling, printer repair, laptop service, desktop sales. Trusted by 10,000+ customers.">
+    <meta property="twitter:image" content="https://saitechcare.com/images/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23667eea'/><text x='50' y='60' font-family='Arial' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>S</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23667eea'/><text x='50' y='60' font-family='Arial' font-size='40' font-weight='bold' text-anchor='middle' fill='white'>S</text></svg>">
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Theme color -->
+    <meta name="theme-color" content="#667eea">
+    <meta name="msapplication-TileColor" content="#667eea">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "SaiTechCare",
+        "description": "Professional tech services in Bangalore. Toner refilling, printer repair, laptop service, desktop sales.",
+        "url": "https://saitechcare.com",
+        "telephone": "+919880663100",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "#60, 2nd Main Road, 3rd Cross, Thimmareddy Layout",
+            "addressLocality": "Bangalore",
+            "addressRegion": "Karnataka",
+            "postalCode": "560043",
+            "addressCountry": "IN"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "13.0827",
+            "longitude": "77.5877"
+        },
+        "openingHours": "Mo-Sa 09:00-20:00, Su 10:00-18:00",
+        "priceRange": "₹₹",
+        "image": "https://saitechcare.com/images/logo.jpg"
+    }
+    </script>
 </head>
 <body>
     <!-- Header -->
@@ -67,23 +126,26 @@
                 </div>
                 <div class="hero-image">
                     <div class="service-preview">
-                        <div class="preview-card">
+                        <div class="preview-card" data-aos="fade-up" data-aos-delay="100">
                             <i class="fas fa-print"></i>
                             <h4>Toner Refilling</h4>
                             <p>Save 60% on printing costs</p>
                             <span class="price">From ₹25</span>
+                            <div class="card-glow"></div>
                         </div>
-                        <div class="preview-card">
+                        <div class="preview-card" data-aos="fade-up" data-aos-delay="200">
                             <i class="fas fa-laptop"></i>
                             <h4>Laptop Repair</h4>
                             <p>Expert diagnosis & repair</p>
                             <span class="price">From ₹60</span>
+                            <div class="card-glow"></div>
                         </div>
-                        <div class="preview-card">
+                        <div class="preview-card" data-aos="fade-up" data-aos-delay="300">
                             <i class="fas fa-desktop"></i>
                             <h4>Desktop Service</h4>
                             <p>Complete PC solutions</p>
                             <span class="price">From ₹50</span>
+                            <div class="card-glow"></div>
                         </div>
                     </div>
                 </div>
@@ -449,6 +511,49 @@
         </div>
     </footer>
 
+    <!-- WhatsApp Float Button -->
+    <div class="whatsapp-float">
+        <a href="https://wa.me/919880663100?text=Hi%20SaiTechCare,%20I%20need%20help%20with%20my%20tech%20issue" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i>
+            <span class="tooltip">Chat with us on WhatsApp</span>
+        </a>
+    </div>
+    
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+    
     <script src="js/script.js"></script>
+    
+    <!-- Performance optimization -->
+    <script>
+        // Lazy load images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+        
+        // Service Worker for caching (optional)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('SW registered'))
+                    .catch(error => console.log('SW registration failed'));
+            });
+        }
+    </script>
 </body>
 </html>
